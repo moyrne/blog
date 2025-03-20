@@ -1,0 +1,126 @@
+baseURL: "https://blog.moyrn.com/"
+languageCode: "zh-CN"
+defaultContentLanguage: "zh"
+title: "Moyrne'Blog"
+paginate: 10
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: "Moyrne'Blog"
+  description: "一只正在成长的菜鸟."
+  keywords: [ Blog, Portfolio, PaperMod ]
+  #  author: [ Moyrn ]
+  #  images: [ "<link or path of image for opengraph, twitter-cards>" ]
+  DateFormat: "2006-01-02"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+  assets:
+    disableHLJS: false  # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "favicon.ico"
+    favicon16x16: "favicon.ico"
+    favicon32x32: "favicon.ico"
+    apple_touch_icon: "favicon.ico"
+    safari_pinned_tab: "favicon.ico"
+
+  label:
+    text: "Home"
+    #    icon: "/favicon.ico"
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: false # needs to be explicitly set
+    title: "Moyrne'Blog"
+    subtitle: "一只正在成长的菜鸟."
+    imageUrl: "favicon.ico"
+    imageWidth: 120
+    imageHeight: 120
+    #    imageTitle: my image
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Tags
+        url: tags
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Moyrne'Blog"
+    Content: "一只正在成长的菜鸟."
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/moyrne"
+
+  analytics:
+    bing:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  #  editPost:
+  #    URL: "https://github.com/<path_to_repo>/content"
+  #    Text: "Suggest Changes" # edit text
+  #    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: [ "title", "permalink", "summary", "content" ]
+menu:
+  main:
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 20
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    style: monokai

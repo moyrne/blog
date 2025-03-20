@@ -1,0 +1,43 @@
+name: deploy pages
+
+on:
+  push:
+    branch: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: setup go1.22
+        uses: actions/setup-go@v5
+        with:
+            go-version: '^1.22.1' # The Go version to download (if necessary) and use.
+      - name: setup hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.128.0'
+      - name: clone pages repo
+        run: |
+          git config set advice.addIgnoredFile false
+          git clone https://${{ secrets.USERNAME }}:${{ secrets.BLOG_REPO_TOKEN }}@github.com/moyrne/moyrne.github.io public
+      - name: build pages
+        run: hugo
+      - name: push pages
+        run: |
+          cd public
+          git config --local user.email ${{ secrets.USEREMAIL }}
+          git config --local user.name ${{ vars.GIT_NAME }}
+          git add .
+
+          status=$(git status -uno)
+          if echo "$status" | grep -q "nothing to commit"; then
+            echo "nothing to push."
+          else
+            echo "commit and push."
+            git commit -m "${{ github.event.head_commit.message }}"
+            git push
+          fi
+
+
