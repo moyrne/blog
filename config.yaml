@@ -1,7 +1,7 @@
 baseURL: "https://blog.moyrn.com/"
 languageCode: "zh-CN"
 defaultContentLanguage: "zh"
-title: "Moyrne'Blog"
+title: "Moyrn的技术笔记"
 paginate: 10
 theme: PaperMod
 
@@ -16,7 +16,7 @@ minify:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: "Moyrne'Blog"
+  title: "Moyrn的技术笔记"
   description: "一只正在成长的菜鸟."
   keywords: [ Blog, Portfolio, PaperMod ]
   #  author: [ Moyrn ]
@@ -24,6 +24,9 @@ params:
   DateFormat: "2006-01-02"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
+
+  enableICP: true
+  ICP: '湘ICP备17013168号-5'
 
   ShowReadingTime: true
   ShowShareButtons: false
@@ -58,7 +61,7 @@ params:
   # profile-mode
   profileMode:
     enabled: false # needs to be explicitly set
-    title: "Moyrne'Blog"
+    title: "Moyrn的技术笔记"
     subtitle: "一只正在成长的菜鸟."
     imageUrl: "favicon.ico"
     imageWidth: 120
@@ -72,7 +75,7 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "Moyrne'Blog"
+    Title: "Moyrn的技术笔记"
     Content: "一只正在成长的菜鸟."
 
   socialIcons:
