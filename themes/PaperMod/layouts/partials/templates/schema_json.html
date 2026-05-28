@@ -4,7 +4,7 @@
   "@context": "https://schema.org",
   "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
   "name": {{ site.Title }},
-  "url": {{ site.Home.Permalink }},
+  "url": {{ site.Home.RelPermalink }},
   "description": {{ site.Params.description | plainify | truncate 180 | safeHTML }},
   {{- if (eq site.Params.schema.publisherType "Person") }}
   "image": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }},
@@ -22,43 +22,38 @@
 </script>
 {{- else if (or .IsPage .IsSection) }}
 {{/* BreadcrumbList */}}
-{{- $url := replace .Parent.Permalink ( printf "%s" site.Home.Permalink) "" }}
+{{- $url := replace .Parent.RelPermalink ( printf "%s" site.Home.RelPermalink) "" }}
 {{- $lang_url := strings.TrimPrefix ( printf "%s/" .Lang) $url }}
 {{- $bc_list := (split $lang_url "/")}}
 
 {{- $scratch := newScratch }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-  {{- range $index, $element := $bc_list }}
+{{- $entries := slice }}
+{{- $currentPath := "" }}
 
-    {{- $scratch.Add "path" (printf "%s/" $element ) | safeJS }}
-    {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
-
-    {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    {{- if (and $index)}}, {{end }}
-    {
-      "@type": "ListItem",
-      "position": {{ add 1 $index  }},
-      "name": {{ $bc_pg.Name }},
-      "item": {{ $bc_pg.Permalink | safeHTML }}
-    }
-    {{- end }}
-
+{{- range $index, $element := $bc_list }}
+  {{- $currentPath = printf "%s/%s" $currentPath $element }}
+  {{- $page := site.GetPage $currentPath }}
+  {{- if $page }}
+    {{- $entries = $entries | append (dict
+      "@type" "ListItem"
+      "position" (len $entries)
+      "name" $page.Name
+      "item" $page.RelPermalink
+    ) }}
   {{- end }}
-  {{- /*  self-page addition  */ -}}
-  {{- if (ge (len $bc_list) 2) }}, {{end }}
-    {
-      "@type": "ListItem",
-      "position": {{len $bc_list}},
-      "name": {{ .Name }},
-      "item": {{ .Permalink | safeHTML }}
-    }
-  ]
-}
+{{- end }}
+
+{{- $entries = $entries | append (dict
+  "@type" "ListItem"
+  "position" (len $entries)
+  "name" .Name
+  "item" .RelPermalink
+) }}
+
+<script type="application/ld+json">
+{{- dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $entries | jsonify }}
 </script>
+
 {{- if .IsPage }}
 <script type="application/ld+json">
 {
@@ -87,7 +82,7 @@
   {{- else }}
     {{- $images := partial "partials/templates/_funcs/get-page-images" . -}}
     {{- with index $images 0 -}}
-  "image": {{ .Permalink }},
+  "image": {{ .RelPermalink }},
     {{- end }}
   {{- end -}}
   "datePublished": {{ .PublishDate }},
@@ -111,7 +106,7 @@
   {{- end }}
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": {{ .Permalink | safeHTML }}
+    "@id": {{ .RelPermalink | safeHTML }}
   },
   "publisher": {
     "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",

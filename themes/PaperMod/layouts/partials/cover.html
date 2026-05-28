@@ -21,7 +21,7 @@
 
     {{- $imgdl := (.Params.cover.image) | absURL }}
     {{- if $cover -}}
-        {{- $imgdl = $cover.Permalink }}
+        {{- $imgdl = $cover.RelPermalink }}
     {{- end -}}
 
     {{- if $addLink }}
@@ -34,11 +34,11 @@
             <img loading="{{$loading}}"
                 srcset='{{- range $size := $sizes -}}
                             {{- if (ge $cover.Width $size) }}
-                                {{- printf "%s %s" (($cover.Resize (printf "%sx" $size)).Permalink) (printf "%sw," $size) }}
+                                {{- printf "%s %s" (($cover.Resize (printf "%sx" $size)).RelPermalink) (printf "%sw," $size) }}
                             {{- end }}
                         {{- end }}
-                        {{- printf "%s %dw" ($cover.Permalink) ($cover.Width) }}'
-                src="{{ $cover.Permalink }}"
+                        {{- printf "%s %dw" ($cover.RelPermalink) ($cover.Width) }}'
+                src="{{ $cover.RelPermalink }}"
                 sizes="(min-width: 768px) 720px, 100vw"
                 width="{{ $cover.Width }}" height="{{ $cover.Height }}"
                 alt="{{ $alt }}">

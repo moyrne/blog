@@ -1,4 +1,4 @@
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ .RelPermalink }}">
 
 {{- with or site.Title site.Params.title | plainify }}
   <meta property="og:site_name" content="{{ . }}">
@@ -44,7 +44,7 @@
 {{- else }}
   {{- with partial "_funcs/get-page-images" . }}
     {{- range . | first 6 }}
-      <meta property="og:image" content="{{ .Permalink }}">
+      <meta property="og:image" content="{{ .RelPermalink }}">
     {{- end }}
   {{- end }}
 {{- end }}
@@ -64,7 +64,7 @@
 {{- range .GetTerms "series" }}
   {{- range .Pages | first 7 }}
     {{- if ne $ . }}
-      <meta property="og:see_also" content="{{ .Permalink }}">
+      <meta property="og:see_also" content="{{ .RelPermalink }}">
     {{- end }}
   {{- end }}
 {{- end }}

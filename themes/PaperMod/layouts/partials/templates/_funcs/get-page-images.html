@@ -9,7 +9,7 @@
     {{- $imgs = $imgs | append (dict
       "Image" .
       "RelPermalink" .RelPermalink
-      "Permalink" .Permalink) }}
+      "Permalink" .RelPermalink) }}
   {{- end }}
 {{- end }}
 {{/* Use the first one of site images as the fallback. */}}
@@ -29,7 +29,7 @@
       {{- $imgs = $imgs | append (dict
         "Image" .
         "RelPermalink" .RelPermalink
-        "Permalink" .Permalink) }}
+        "Permalink" .RelPermalink) }}
     {{- else }}
       {{- $imgs = $imgs | append (dict
         "RelPermalink" (relURL $img)

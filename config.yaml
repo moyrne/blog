@@ -1,4 +1,6 @@
-baseURL: "https://moyrn.cn/"
+baseURL: "/"
+relativeURLs: true
+canonifyURLs: false
 languageCode: "zh-CN"
 defaultContentLanguage: "zh"
 title: "Moyrn的技术笔记"
