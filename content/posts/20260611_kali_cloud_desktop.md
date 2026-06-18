@@ -1,5 +1,5 @@
 ---
-title: "20260611_kali_cloud_desktop"
+title: "桌面系统调优小记"
 date: 2026-06-11T18:44:33+08:00
 draft: true
 comments: false
@@ -48,4 +48,12 @@ vga_mem 131072
 
 ~~~shell
 sudo apt install spice-vdagent qemu-guest-agent xserver-xorg-video-qxl
+~~~
+
+# windows 11 优化
+
+1. 搜索界面卡死
+
+~~~
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v DisableSearchBoxSuggestions /t REG_DWORD /d 1 /f && taskkill /f /im explorer.exe && start explorer.exe
 ~~~
